@@ -85,13 +85,13 @@ endif()
 
 # Цели для разработки
 add_custom_target(format
-    COMMAND clang-format -i gradus_enhanced.c
+    COMMAND clang-format -i gradus.c
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     COMMENT "Formatting source code"
 )
 
 add_custom_target(analyze
-    COMMAND clang-tidy gradus_enhanced.c --
+    COMMAND clang-tidy gradus.c --
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     COMMENT "Running static analysis"
 )
