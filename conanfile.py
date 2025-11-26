@@ -31,7 +31,7 @@ class GradusConan(ConanFile):
     }
     
     # Экспортируемые файлы
-    exports_sources = "CMakeLists.txt", "gradus_enhanced.c", "*.h"
+    exports_sources = "CMakeLists.txt", "gradus.c", "*.h"
     
     def config_options(self):
         if self.settings.os == "Windows":
