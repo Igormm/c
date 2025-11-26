@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # Сервис для сборки и разработки
+  gradus-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: gradus-development
+    volumes:
+      - .:/workspace
+      - build-cache:/workspace/build
+    working_dir: /workspace
+    command: tail -f /dev/null  # Держит контейнер запущенным
+    
+  # Сервис для тестирования
+  gradus-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: gradus-testing
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    command: make test
+    depends_on:
+      - gradus-dev
+
+  # Сервис для статического анализа
+  gradus-analyze:
+    build:
+      context: .
+      dockerfile: Dockerfile.analyze
+    container_name: gradus-analysis
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    command: make analyze
+    depends_on:
+      - gradus-dev
+
+  # Сервис для документации
+  gradus-docs:
+    build:
+      context: .
+      dockerfile: Dockerfile.docs
+    container_name: gradus-documentation
+    volumes:
+      - .:/workspace
+      - docs-output:/workspace/docs
+    working_dir: /workspace
+    command: make doc
+    ports:
+      - "8080:8080"
+
+volumes:
+  build-cache:
+  docs-output:
