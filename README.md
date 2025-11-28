@@ -159,7 +159,7 @@ echo "Температурные точки воды:" && ./gradus -a -s C -t F,
 
 ### 🛠 Компиляция 
 ```bash
-    gcc -Wall -Wextra -o gradus gradus_enhanced.c -lm
+    gcc -Wall -Wextra -o gradus gradus.c -lm
 ```
 ### Физические ограничения
 
